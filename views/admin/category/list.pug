@@ -1,0 +1,22 @@
+extends ../../common/layout
+
+block layout-content 
+  h1 Category List
+  a.addButton(href="/admin/category/add") Add Category
+
+  table
+    thead
+      tr
+        th ID
+        th Category Name
+        th Parent Category ID
+        th Actions
+    tbody
+      each category in categories
+        tr
+          td #{category._id}
+          td #{category.category}
+          td #{category.parent_category_id || 'None'}
+          td 
+            a.updateButton(href="/admin/category/#{category._id}/edit") Update
+            a.deleteButton(href="/admin/category/#{category._id}/delete") Delete
