@@ -166,7 +166,7 @@ button {
 
 h1 {
   font-size: 3em;
-  margin:8px 0;
+  margin:0.8em 0 0 0;
 }
 
 /* Footer */
@@ -198,6 +198,8 @@ td {
   background: #FCF5E1;
 }
 
+.addback{margin:15px}
+
 .addButton{
   text-decoration: none;
   padding: 5px 5px;
@@ -207,10 +209,26 @@ td {
   border-radius: 5px;
   font-size: 1.2em;
   color: white;
-  margin-bottom: 10px;
+  margin: 20px;
 }
 
 .addButton:hover{
+  background-color: #FFE5A3;
+}
+
+.backButton {
+  text-decoration: none;
+  padding: 5px 5px;
+  cursor: pointer;
+  background-color: indianred;
+  border-width: 0;
+  border-radius: 5px;
+  font-size: 1.2em;
+  color: white;
+  margin: 20px;
+}
+
+.backButton:hover {
   background-color: #FFE5A3;
 }
 
@@ -233,11 +251,40 @@ td {
   background-color: IndianRed;
   border-width: 0;
   border-radius: 5px;
-  font-size: 0.8em;
+  font-size: 1em;
   color: white;
 }
 
-input{
-  width:138px;
-  margin:10px 4px;
+.inputform {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 1.8em;
+  row-gap: 1em;
+}
+
+.deleteform{display: inline-block;}
+
+.confirmButton{
+  text-decoration: none;
+  padding: 10px;
+  cursor: pointer;
+  background-color: #80ADA7;
+  border-width: 0;
+  border-radius: 5px;
+  font-size: 28px;
+  color: white;
+  margin: 15px 15px;
+}
+
+.cancelButton {
+  text-decoration: none;
+  padding: 10px;
+  cursor: pointer;
+  background-color: IndianRed;
+  border-width: 0;
+  border-radius: 5px;
+  font-size: 24px;
+  color: white;
+  margin: 15px 15px;
 }

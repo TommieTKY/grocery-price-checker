@@ -36,12 +36,12 @@ app.use(
 
 app.use("/user", require("./modules/user/routes"));
 app.use("/admin/category", require("./modules/category/routes"));
-// app.use("/", require("./modules/grocery/routes"));
+app.use("/admin/grocery", require("./modules/grocery/routes"));
 
 //USE PAGE ROUTES FROM ROUTER(S)
 app.get("/", async (request, response) => {
-  let groceryData = await db.getGrocery();
-  response.render("index", { groceryData });
+  // let groceryData = await db.getGrocery();
+  response.render("index");
 });
 
 app.get("/admin/admin", (request, response) => {

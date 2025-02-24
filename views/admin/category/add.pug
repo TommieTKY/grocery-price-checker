@@ -1,0 +1,16 @@
+extends ../../common/layout
+
+block layout-content 
+    h1 Add data to Grocery
+    if err
+      p #{err}
+    form.inputform(method="post", action="/admin/category/add")
+      div 
+        label(for="name") Name: 
+        input(type="text", id="name", name="name")
+      div 
+        label(for="parentCategoryId") Parent Category Id: 
+        input(type="text", id="parentCategoryId", name="parentCategoryId")
+      div 
+        button.confirmButton(type="submit") Add
+        a.cancelButton(href="/admin/category/list") Cancel

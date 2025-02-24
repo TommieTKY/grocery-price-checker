@@ -2,7 +2,9 @@ extends ../../common/layout
 
 block layout-content 
   h1 Category List
-  a.addButton(href="/admin/category/add") Add Category
+  div.addback
+    a.addButton(href="/admin/category/add") Add Category
+    a.backButton(href="/admin/admin") Back
 
   table
     thead
@@ -18,5 +20,7 @@ block layout-content
           td #{category.category}
           td #{category.parent_category_id || 'None'}
           td 
-            a.updateButton(href="/admin/category/#{category._id}/edit") Update
-            a.deleteButton(href="/admin/category/#{category._id}/delete") Delete
+            a.updateButton(href=`/admin/category/update/${category._id}`) Update
+            a.deleteButton(href=`/admin/category/delete/${category.category}`) Delete
+            //- form.deleteform(action="/admin/category/delete/#{category._id}?_method=DELETE", method="POST")
+            //-   button.deleteButton(type="submit", onclick="return confirm('Are you sure?')") Delete

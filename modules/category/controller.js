@@ -5,24 +5,52 @@ const getCategories = async (request, response) => {
   response.render("admin/category/list", { categories: categoryList });
 };
 
+const addCategoryForm = (request, response) => {
+  response.render("admin/category/add");
+};
+
 const addCategory = async (request, response) => {
-  await db.addCategory("beef", "67b4debafcddcdab7fea543f");
-  response.render("admin/category/list");
+  let result = await categoryModel.addCategory(
+    request.body.name,
+    request.body.parentCategoryId
+  );
+  if (result) {
+    response.redirect("/admin/category/list");
+  } else {
+    response.render("admin/category/add", {
+      err: "Category Name already exists",
+    });
+  }
+};
+
+const updateCategoryForm = (request, response) => {
+  response.render("admin/category/update");
 };
 
 const updateCategory = async (request, response) => {
-  await db.updateCategory("beefs", "67b4debafcddcdab7fea543f");
-  response.render("admin/category/list");
+  await categoryModel.updateCategory(
+    request.params.id,
+    request.body.category,
+    request.body.parent_category_id
+  );
+  response.redirect("/admin/category/list");
 };
 
 const deleteCategory = async (request, response) => {
-  await db.deleteCategory("beef");
-  response.render("admin/category/list");
+  try {
+    await categoryModel.deleteCategory(request.params.category);
+    response.redirect("/admin/category/list");
+  } catch (error) {
+    console.error("Error deleting category:", error);
+    response.status(500).send("Error deleting category");
+  }
 };
 
 module.exports = {
   getCategories,
+  addCategoryForm,
   addCategory,
+  updateCategoryForm,
   updateCategory,
   deleteCategory,
 };

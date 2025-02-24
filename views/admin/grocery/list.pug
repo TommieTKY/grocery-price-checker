@@ -1,0 +1,30 @@
+extends ../../common/layout
+
+block layout-content 
+  h1 Grocery List
+  div.addback
+    a.addButton(href="/admin/grocery/add") Add new record
+    a.backButton(href="/admin/admin") Back
+
+  table
+    thead
+      tr
+        th ID
+        th Store
+        th Price
+        th Unit
+        th Price/Unit
+        th Category
+        th Actions
+    tbody
+      each grocery in groceries
+        tr
+          td #{grocery._id}
+          td #{grocery.store}
+          td #{grocery.price}
+          td #{grocery.unit}
+          td #{grocery.price_per_unit}
+          td #{grocery.category}
+          td 
+            a.updateButton(href=`/admin/grocery/update/${grocery._id}`) Update
+            a.deleteButton(href=`/admin/grocery/delete/${grocery._id}`) Delete

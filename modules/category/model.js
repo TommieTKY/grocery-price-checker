@@ -5,7 +5,11 @@ const db = require("../../db"); //shared db stuff
 //set up Schema and model
 const CategorySchema = new mongoose.Schema({
   category: String,
-  parent_category_id: String,
+  parent_category_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Category",
+    default: null,
+  },
 });
 const Category = mongoose.model("Category", CategorySchema);
 
@@ -17,25 +21,36 @@ async function getCategories() {
 
 async function addCategory(categoryName, parentCategoryId) {
   await db.connect();
-  let newCategory = new Category({
-    category: categoryName,
-    parent_category_id: parentCategoryId,
-  });
-  let result = await newCategory.save(); //save to the DB collection
-  console.log(result);
+  let category = await Category.findOne({ category: categoryName });
+
+  if (!category) {
+    let newCategory = new Category({
+      category: categoryName,
+      parent_category_id: parentCategoryId,
+    });
+    let result = await newCategory.save(); //save to the DB collection
+    if (result === newCategory) return true;
+    else return false;
+  } else {
+    return false;
+  }
 }
 
-async function updateCategory(categoryName, parentCategoryId) {
+async function updateCategory(categoryId, categoryName, parentCategoryId) {
   await db.connect();
-  let result = await Pet.updateOne(
+  let updateCategory = await Category.updateOne(
     { category: categoryName },
     { parent_category_id: parentCategoryId }
   );
+  let result = await updateCategory.findByIdAndUpdate(categoryId);
+  if (result === updateCategory) return true;
+  else return false;
 }
 
-async function deleteCategory(categoryName) {
+async function deleteCategory(name) {
   await db.connect();
-  let result = await Pet.deleteOne({ category: categoryName });
+  console.log("Model Deleting category:", name);
+  await Category.findOneAndDelete({ category: name });
 }
 
 module.exports = {
