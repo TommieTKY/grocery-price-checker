@@ -14,19 +14,22 @@ header{
   display:flex;
   flex-flow: row wrap;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
   box-shadow: 0 0.625em 1.25em 0.625em rgba(0, 0, 0, 0.25);
   z-index:100;
   position: relative;
+  padding:10px;
 }
 
 /* Site Title */
 #site {
   text-shadow: 0 0.25em 0.25em rgba(0,0,0,0.25);
+  font-size: 2em;
+  margin: 5px;
 }
-
 h2 {
   font-size: 2em;
+  margin:5px;
 }
 
 /* Navigation Menu */
@@ -39,21 +42,17 @@ h2 {
   padding: 1.375em 0em;
   margin:0;
 }
-
 .menu li {
   position: relative;
 }
-
 #site a, .menu a{
   text-decoration: none;
   color: #B07B00;
 }
-
 #site a:hover,
 .menu a:hover{
   color:#80ADA7;
 }
-
 .menu a{
   position: relative;
 }
@@ -69,11 +68,9 @@ h2 {
   border-radius: 10px;
   z-index: 1;
 }
-
 .headitem:hover .item{
   display: flex;
 }
-
 .navbutton a{
   text-decoration: none;
   color: #B07B00;
@@ -82,7 +79,6 @@ h2 {
   border: 2px solid #B07B00;
   border-radius: 15px;
 }
-
 .navbutton a:hover{
   background-color: #B07B00;
   color: white;
@@ -100,6 +96,7 @@ h2 {
   z-index: 0;
   padding-bottom: 2em;
   min-height: 500px;
+  width: 100%;
   }
 
 /* Search Bar */
@@ -112,18 +109,15 @@ h2 {
   align-items: center;
   column-gap: 2px;
 }
-
 #searchOption {
   width: 150px;
   padding: 8px;
   border: 3px solid #B07B00;
   border-radius: 10px;
 }
-
 #searchOption:focus {
   outline: none;
 }
-
 button {
   padding: 5px 10px;
   cursor: pointer;
@@ -133,21 +127,27 @@ button {
   font-size: 1.3em;
   color:white;
 }
-
 #searchButton{
   background-color: #FFB60D;
 }
 
+/* Admin Page */
+h3{
+  font-size: 2em;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  column-gap: 1.5em;
+  justify-content: space-around;
+  row-gap: 1em;
+}
 .adminlist {
   text-decoration: none;
-  margin: 50px 30px;
   color: #B07B00;
-  font-size: 2em;
   padding: 10px 20px;
   border: 2px solid #B07B00;
   border-radius: 15px;
 }
-
 .adminlist:hover {
   background-color: #B07B00;
   color: white;
@@ -163,7 +163,6 @@ button {
   flex-direction: column;
   align-items: center;
 }
-
 h1 {
   font-size: 3em;
   margin:0.8em 0 0 0;
@@ -182,89 +181,77 @@ table {
   border-collapse: collapse;
   font-size: 0.8em;
   position: relative;
+  width: 80%;
 }
-
 th,
 td {
   border: 1px solid #B07B00;
   padding: 5px;
 }
-
 th {
   background: #FFE5A3;
 }
-
 td {
   background: #FCF5E1;
 }
 
-.addback{margin:15px}
-
-.addButton{
+/* buttons on admin */
+.addback{margin:20px}
+button,
+.addButton,
+.backButton,
+.updateButton,
+.deleteButton,
+.confirmButton,
+.cancelButton {
   text-decoration: none;
-  padding: 5px 5px;
+  padding: 10px;
   cursor: pointer;
-  background-color: #B07B00;
-  border-width: 0;
-  border-radius: 5px;
-  font-size: 1.2em;
-  color: white;
-  margin: 20px;
-}
-
-.addButton:hover{
-  background-color: #FFE5A3;
-}
-
-.backButton {
-  text-decoration: none;
-  padding: 5px 5px;
-  cursor: pointer;
-  background-color: indianred;
-  border-width: 0;
-  border-radius: 5px;
-  font-size: 1.2em;
-  color: white;
-  margin: 20px;
-}
-
-.backButton:hover {
-  background-color: #FFE5A3;
-}
-
-.updateButton {
-  text-decoration: none;
-  padding: 2px 2px;
-  cursor: pointer;
-  background-color: #80ADA7;
-  border-width: 0;
-  border-radius: 5px;
-  font-size: 0.8em;
-  color: white;
-  margin-right: 5px;
-}
-
-.deleteButton {
-  text-decoration: none;
-  padding: 2px 2px;
-  cursor: pointer;
-  background-color: IndianRed;
-  border-width: 0;
-  border-radius: 5px;
+  border: none;
+  border-radius: 10px;
   font-size: 1em;
   color: white;
 }
+.addButton {
+  background-color: #B07B00;
+  margin-right: 20px;
+}
+.addButton:hover {
+  background-color: #FFE5A3;
+}
+.backButton {
+  background-color: indianred;
+}
+.backButton:hover {
+  background-color: #FFE5A3;
+}
+.updateButton {
+  background-color: #80ADA7;
+  padding: 5px;
+  font-size: 0.9em;
+  margin-right: 5px;
+}
+.deleteButton {
+  background-color: IndianRed;
+  padding: 5px;
+  font-size: 0.9em;
+}
 
+
+/* Form Section */
 .inputform {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  font-size: 1.8em;
+  align-items: center;
+  font-size: 2em;
   row-gap: 1em;
+  max-width: 100%;
 }
-
-.deleteform{display: inline-block;}
-
+input {
+  padding: 8px;
+  border: 2px solid #B07B00;
+  border-radius: 5px;
+}
 .confirmButton{
   text-decoration: none;
   padding: 10px;
@@ -272,11 +259,10 @@ td {
   background-color: #80ADA7;
   border-width: 0;
   border-radius: 5px;
-  font-size: 28px;
+  font-size: 1.2em;
   color: white;
   margin: 15px 15px;
 }
-
 .cancelButton {
   text-decoration: none;
   padding: 10px;
@@ -284,7 +270,31 @@ td {
   background-color: IndianRed;
   border-width: 0;
   border-radius: 5px;
-  font-size: 24px;
+  font-size: 1em;
   color: white;
   margin: 15px 15px;
+}
+
+
+@media screen and (max-width: 768px) {
+  h1 {font-size: 2em;}
+  h2, h3, .inputform {font-size: 1.5em;}
+  input {padding:6px;}
+  
+  table {
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  h1 {font-size: 1.5em;}
+  h2, h3, .inputform {font-size: 1em;}
+  input {padding:4px;}
+
+  button {
+    font-size: 0.9em;
+    padding: 8px;
+  }
 }

@@ -22,7 +22,9 @@ async function getCategories() {
 async function addCategory(categoryName, parentCategoryId) {
   await db.connect();
   let category = await Category.findOne({ category: categoryName });
-
+  if (!parentCategoryId) {
+    parentCategoryId = null; //Convert empty string to null
+  }
   if (!category) {
     let newCategory = new Category({
       category: categoryName,

@@ -10,13 +10,13 @@ block layout-content
         input(type="text", id="store", name="store")
       div 
         label(for="price") Price: 
-        input(type="number", id="price", name="price")
+        input(type="number", id="price", name="price", step="0.01", min="0")
       div 
         label(for="unit") Unit: 
         input(type="number", id="unit", name="unit")
       div 
         label(for="price_per_unit") Price/Unit: 
-        input(type="number", id="price_per_unit", name="price_per_unit", step="0.01", min="0")
+        input(type="number", id="price_per_unit", name="price_per_unit", step="0.001", min="0")
       div 
         label(for="category") Category: 
         input(type="text", id="category", name="category")
