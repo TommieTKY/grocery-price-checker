@@ -2,9 +2,7 @@ const express = require("express");
 const session = require("express-session");
 const path = require("path"); //needed when setting up static/file paths
 const dotenv = require("dotenv");
-
 const cors = require("cors");
-app.use(cors());
 
 //load the environment variables from .env
 dotenv.config();
@@ -22,6 +20,7 @@ app.set("view engine", "pug");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 //set up folder for static files
 app.use(express.static(path.join(__dirname, "public")));
