@@ -3,6 +3,9 @@ const session = require("express-session");
 const path = require("path"); //needed when setting up static/file paths
 const dotenv = require("dotenv");
 
+const cors = require("cors");
+app.use(cors());
+
 //load the environment variables from .env
 dotenv.config();
 

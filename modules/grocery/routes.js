@@ -12,7 +12,7 @@ router.post("/update:id", groceryController.updateGrocery);
 
 router.get("/delete/:id", groceryController.deleteGrocery);
 
-// http://localhost:8888/admin/category/api/grocery
+// http://localhost:8888/admin/category/api
 router.get("/api", groceryController.getGroceriesAPI);
 
 module.exports = router;
