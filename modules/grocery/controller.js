@@ -46,6 +46,11 @@ const deleteGrocery = async (request, response) => {
   }
 };
 
+const getGroceriesAPI = async (request, response) => {
+  let groceryList = await groceryModel.getGroceries();
+  response.json(groceryList);
+};
+
 module.exports = {
   getGroceries,
   addGroceryForm,
@@ -53,4 +58,5 @@ module.exports = {
   updateGroceryForm,
   updateGrocery,
   deleteGrocery,
+  getGroceriesAPI,
 };

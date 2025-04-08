@@ -48,6 +48,26 @@ app.get("/admin/admin", (request, response) => {
   response.render("admin/admin");
 });
 
+// /api/convert/cmtoin?cm=10
+app.get("/api/convert/cmtoin", (request, response) => {
+  let cm = request.query.cm;
+  let converted = {
+    length: cm / 2.54,
+  }; //convert cm value to inches
+  response.json(converted); //send JSON object with appropriate JSON headers
+});
+
+//  expect to receive data { "celsius": 100 }
+//  returns: { temperature: <converted_value> }
+app.post("/api/convert/ctof", (req, res) => {
+  let celsius = req.body.celsius;
+  let convert = (celsius * 9) / 5 + 32;
+  let fahrenheit = {
+    temperature: convert,
+  };
+  res.json(fahrenheit);
+});
+
 //set up server listening
 app.listen(port, () => {
   console.log(`Listening on http://localhost:${port}`);

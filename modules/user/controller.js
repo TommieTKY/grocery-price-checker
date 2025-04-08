@@ -36,15 +36,11 @@ const login = async (request, response) => {
 };
 
 const logout = (request, response) => {
-  request.session.destroy((err) => {
-    if (err) {
-      console.error("Error destroying session:", err);
-      return response.status(500).send("Error destroying session");
-    }
-    response.clearCookie("MyUniqueSessID");
-    response.redirect("/user/login");
-  });
+  request.session.destroy();
+  response.clearCookie("MyUniqueSessID");
+  response.redirect("/user/login");
 };
+
 // it seems that the session is not destroyed
 // may solve it later, just realized that I do not need login function for admin page
 

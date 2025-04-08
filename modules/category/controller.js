@@ -46,6 +46,11 @@ const deleteCategory = async (request, response) => {
   }
 };
 
+const getCategoriesAPI = async (request, response) => {
+  let categoryList = await categoryModel.getCategories();
+  response.json(categoryList);
+};
+
 module.exports = {
   getCategories,
   addCategoryForm,
@@ -53,4 +58,5 @@ module.exports = {
   updateCategoryForm,
   updateCategory,
   deleteCategory,
+  getCategoriesAPI,
 };

@@ -12,4 +12,7 @@ router.post("/update:id", categoryController.updateCategory);
 
 router.get("/delete/:category", categoryController.deleteCategory);
 
+// http://localhost:8888/admin/category/api/category
+router.get("/api", categoryController.getCategoriesAPI);
+
 module.exports = router;
