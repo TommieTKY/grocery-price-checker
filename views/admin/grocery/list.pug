@@ -24,7 +24,7 @@ block layout-content
           td #{grocery.price}
           td #{grocery.unit}
           td #{grocery.price_per_unit}
-          td #{grocery.category}
+          td #{grocery.category_id}
           td 
             a.updateButton(href=`/admin/grocery/update/${grocery._id}`) Update
             a.deleteButton(href=`/admin/grocery/delete/${grocery._id}`) Delete

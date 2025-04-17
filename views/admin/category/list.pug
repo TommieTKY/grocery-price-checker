@@ -17,10 +17,10 @@ block layout-content
       each category in categories
         tr
           td #{category._id}
-          td #{category.category}
+          td #{category.name}
           td #{category.parent_category_id || 'None'}
           td 
             a.updateButton(href=`/admin/category/update/${category._id}`) Update
-            a.deleteButton(href=`/admin/category/delete/${category.category}`) Delete
+            a.deleteButton(href=`/admin/category/delete/${category.name}`) Delete
             //- form.deleteform(action="/admin/category/delete/#{category._id}?_method=DELETE", method="POST")
             //-   button.deleteButton(type="submit", onclick="return confirm('Are you sure?')") Delete

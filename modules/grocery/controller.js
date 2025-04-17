@@ -15,7 +15,7 @@ const addGrocery = async (request, response) => {
     request.body.price,
     request.body.unit,
     request.body.price_per_unit,
-    request.body.category
+    request.body.category_id
   );
   response.redirect("/admin/grocery/list");
 };
@@ -31,7 +31,7 @@ const updateGrocery = async (request, response) => {
     request.body.price,
     request.body.unit,
     request.body.price_per_unit,
-    request.body.category
+    request.body.category_id
   );
   response.redirect("/admin/grocery/list");
 };

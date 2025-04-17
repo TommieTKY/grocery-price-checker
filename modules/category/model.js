@@ -4,7 +4,7 @@ const db = require("../../db"); //shared db stuff
 
 //set up Schema and model
 const CategorySchema = new mongoose.Schema({
-  category: String,
+  name: String,
   parent_category_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Category",

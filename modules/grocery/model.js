@@ -8,7 +8,11 @@ const GrocerySchema = new mongoose.Schema({
   price: Number,
   unit: Number,
   price_per_unit: Number,
-  category: String,
+  category_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Category",
+    default: null,
+  },
 });
 const Grocery = mongoose.model("Grocery", GrocerySchema);
 
