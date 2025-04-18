@@ -27,7 +27,7 @@ async function addCategory(categoryName, parentCategoryId) {
   }
   if (!category) {
     let newCategory = new Category({
-      category: categoryName,
+      name: categoryName,
       parent_category_id: parentCategoryId,
     });
     let result = await newCategory.save(); //save to the DB collection
@@ -41,7 +41,7 @@ async function addCategory(categoryName, parentCategoryId) {
 async function updateCategory(categoryId, categoryName, parentCategoryId) {
   await db.connect();
   let updateCategory = await Category.updateOne(
-    { category: categoryName },
+    { name: categoryName },
     { parent_category_id: parentCategoryId }
   );
   let result = await updateCategory.findByIdAndUpdate(categoryId);

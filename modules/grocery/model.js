@@ -22,28 +22,35 @@ async function getGroceries() {
   return await Grocery.find({});
 }
 
-async function addGrocery(store, price, unit, price_per_unit, category) {
+async function addGrocery(store, price, unit, price_per_unit, category_id) {
   await db.connect();
   let newGrocery = new Grocery({
     store: store,
     price: price,
     unit: unit,
     price_per_unit: price_per_unit,
-    category: category,
+    category_id: category_id,
   });
   let result = await newGrocery.save();
   if (result === newGrocery) return true;
   else return false;
 }
 
-async function updateGrocery(id, store, price, unit, price_per_unit, category) {
+async function updateGrocery(
+  id,
+  store,
+  price,
+  unit,
+  price_per_unit,
+  category_id
+) {
   await db.connect();
   let updateGrocery = await Grocery.updateOne({
     store: store,
     price: price,
     unit: unit,
     price_per_unit: price_per_unit,
-    category: category,
+    category_id: category_id,
   });
   let result = await updateGrocery.findByIdAndUpdate(id);
   if (result === updateGrocery) return true;
