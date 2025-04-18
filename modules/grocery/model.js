@@ -5,9 +5,9 @@ const db = require("../../db"); //shared db stuff
 //set up Schema and model
 const GrocerySchema = new mongoose.Schema({
   store: String,
-  price: Number,
-  unit: Number,
-  price_per_unit: Number,
+  price: mongoose.Decimal128,
+  unit: mongoose.Decimal128,
+  price_per_unit: mongoose.Decimal128,
   category_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Category",
