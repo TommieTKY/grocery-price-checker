@@ -32,7 +32,7 @@ block layout-content
       label(for="category_id") Category: 
       select#category_id(name="category_id")
         option(value="") — None —
-        each category in categoryList
+        each category in childCategories
           option(
             value=category._id,
             selected=(grocery.category_id && category._id.toString() === grocery.category_id.toString())
