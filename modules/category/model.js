@@ -16,7 +16,31 @@ const Category = mongoose.model("Category", CategorySchema);
 //MONGODB FUNCTIONS
 async function getCategories() {
   await db.connect();
-  return await Category.find({});
+  const categories = await Category.find({}).populate(
+    "parent_category_id",
+    "name"
+  );
+
+  categories.sort((a, b) => {
+    const parentA = a.parent_category_id?.name || "";
+    const parentB = b.parent_category_id?.name || "";
+    // if different parents, compare parent names
+    if (parentA !== parentB) {
+      return parentA.localeCompare(parentB);
+    }
+    // same parent (or both top-level) → compare category names
+    return a.name.localeCompare(b.name);
+  });
+
+  return categories;
+}
+
+async function getParentCategories() {
+  await db.connect();
+  const parents = await Category.find({ parent_category_id: null }).sort({
+    name: 1,
+  });
+  return parents;
 }
 
 async function addCategory(categoryName, parentCategoryId) {
@@ -49,14 +73,14 @@ async function updateCategory(categoryId, categoryName, parentCategoryId) {
   else return false;
 }
 
-async function deleteCategory(name) {
+async function deleteCategory(categoryId) {
   await db.connect();
-  console.log("Model Deleting category:", name);
-  await Category.findOneAndDelete({ category: name });
+  await Category.findByIdAndDelete(categoryId);
 }
 
 module.exports = {
   getCategories,
+  getParentCategories,
   addCategory,
   updateCategory,
   deleteCategory,

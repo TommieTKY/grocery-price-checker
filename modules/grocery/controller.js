@@ -2,11 +2,24 @@ const groceryModel = require("./model");
 
 const getGroceries = async (request, response) => {
   let groceryList = await groceryModel.getGroceries();
-  response.render("admin/grocery/list", { groceries: groceryList });
+  if (request.session.loggedIn) {
+    response.render("admin/grocery/list", {
+      groceries: groceryList,
+      loggedIn: true,
+    });
+  } else {
+    response.redirect("/user/login");
+  }
 };
 
 const addGroceryForm = (request, response) => {
-  response.render("admin/grocery/add");
+  if (request.session.loggedIn) {
+    response.render("admin/grocery/add", {
+      loggedIn: true,
+    });
+  } else {
+    response.redirect("/user/login");
+  }
 };
 
 const addGrocery = async (request, response) => {

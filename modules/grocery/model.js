@@ -19,7 +19,17 @@ const Grocery = mongoose.model("Grocery", GrocerySchema);
 //MONGODB FUNCTIONS
 async function getGroceries() {
   await db.connect();
-  return await Grocery.find({});
+  const groceries = await Grocery.find({}).populate("category_id", "name");
+
+  groceries.sort((a, b) => {
+    const catA = a.category_id?.name || "";
+    const catB = b.category_id?.name || "";
+    if (catA !== catB) {
+      return catA.localeCompare(catB);
+    }
+    return a.price_per_unit - b.price_per_unit;
+  });
+  return groceries;
 }
 
 async function addGrocery(store, price, unit, price_per_unit, category_id) {

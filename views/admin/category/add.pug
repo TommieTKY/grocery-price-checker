@@ -9,8 +9,11 @@ block layout-content
         label(for="name") Name: 
         input(type="text", id="name", name="name")
       div 
-        label(for="parentCategoryId") Parent Category Id: 
-        input(type="text", id="parentCategoryId", name="parentCategoryId", value="")
+        label(for="parentCategoryId") Parent Category: 
+        select#parentCategoryId(name="parentCategoryId")
+          option(value="") — None —
+          each parent in parents
+            option(value=parent._id)= parent.name
       div 
         button.confirmButton(type="submit") Add
         a.cancelButton(href="/admin/category/list") Cancel

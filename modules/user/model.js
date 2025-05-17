@@ -20,12 +20,14 @@ async function authenticateUser(username, pw) {
   if (result) return true;
   else return false;
 }
+
 async function getUser(username) {
   await db.connect();
   //check if username exists already
   let result = await User.findOne({ user: username });
   return result ? result : false;
 }
+
 async function addUser(username, pw) {
   await db.connect();
   let user = await getUser(username);

@@ -1,12 +1,8 @@
 const userModel = require("./model");
 
 const getUser = async (request, response) => {
-  console.log(request.session);
-  //get user from session and render user page
   if (request.session.loggedIn) {
-    // user logged in, render user page
-    let user = await userModel.getUser(request.session.user);
-    response.render("user/user", {
+    response.render("index", {
       username: request.session.user,
       loggedIn: true,
     });
@@ -22,7 +18,6 @@ const loginForm = (request, response) => {
 const login = async (request, response) => {
   //authenticate user and redirect to /user
   let auth = await userModel.authenticateUser(request.body.u, request.body.pw);
-  console.log(auth);
   if (auth) {
     //set session variables
     request.session.loggedIn = true;
@@ -35,14 +30,11 @@ const login = async (request, response) => {
   // extra: if the user already login, redirect to /user
 };
 
-const logout = (request, response) => {
-  request.session.destroy();
-  response.clearCookie("MyUniqueSessID");
-  response.redirect("/user/login");
+const logout = (req, res) => {
+  req.session.destroy();
+  res.clearCookie("MyUniqueSessID", { path: "/" });
+  res.redirect("/user/login");
 };
-
-// it seems that the session is not destroyed
-// may solve it later, just realized that I do not need login function for admin page
 
 const registerForm = (request, response) => {
   response.render("user/register");

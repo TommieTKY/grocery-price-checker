@@ -1,27 +1,9 @@
 extends common/layout
 
 block layout-content 
-  #opening.content
-    h1 Welcome to Tommie's Grocery Price Checker!
-    
-  // Table Section
-    //- form(method="post")
-    //-   // Input Fields
-    //-   tr
-    //-     td: input(type="text" id="store" name="store")
-    //-     td: input(type="number" step="any" id="price" name="price")
-    //-     td: input(type="number" step="any" id="unit" name="unit")
-    //-     td: input(type="number" step="any" id="pu" name="pu")
-
-      //- // Button Section
-      //- tr
-      //-   td(colspan="4")
-      //-     #curd
-      //-       button#cal Calculate
-      //-       button#add Add
-      //-       button#edit Edit
-
-      //- // Prompt Section
-      //- tr
-      //-   td(colspan="4")
-      //-     #prompt
+  h1 Hi, #{username}!
+  h2 Welcome to Admin Dashboard!
+  h2 Please select a collection to manage
+  h3
+    a.adminlist(href="/admin/category/list") Category
+    a.adminlist(href="/admin/grocery/list") Grocery

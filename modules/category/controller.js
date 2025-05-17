@@ -2,11 +2,26 @@ const categoryModel = require("./model");
 
 const getCategories = async (request, response) => {
   let categoryList = await categoryModel.getCategories();
-  response.render("admin/category/list", { categories: categoryList });
+  if (request.session.loggedIn) {
+    response.render("admin/category/list", {
+      categories: categoryList,
+      loggedIn: true,
+    });
+  } else {
+    response.redirect("/user/login");
+  }
 };
 
-const addCategoryForm = (request, response) => {
-  response.render("admin/category/add");
+const addCategoryForm = async (request, response) => {
+  if (request.session.loggedIn) {
+    const parents = await categoryModel.getParentCategories();
+    response.render("admin/category/add", {
+      loggedIn: true,
+      parents,
+    });
+  } else {
+    response.redirect("/user/login");
+  }
 };
 
 const addCategory = async (request, response) => {
