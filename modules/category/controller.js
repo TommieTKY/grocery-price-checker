@@ -61,7 +61,7 @@ const updateCategoryForm = async (request, response) => {
 const updateCategory = async (request, response) => {
   await categoryModel.updateCategory(
     request.params.id,
-    request.body.category,
+    request.body.name,
     request.body.parent_category_id
   );
   response.redirect("/admin/category/list");
