@@ -33,7 +33,10 @@ block layout-content
       select#category_id(name="category_id")
         option(value="") — None —
         each category in categoryList
-          option(value=category._id)= category.name
+          option(
+            value=category._id,
+            selected=(grocery.category_id && category._id.toString() === grocery.category_id.toString())
+          )= category.name
     div 
       button.confirmButton(type="submit") Update
       a.cancelButton(href="/admin/grocery/list") Cancel
