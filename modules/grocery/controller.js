@@ -16,6 +16,7 @@ const getGroceries = async (request, response) => {
 const addGroceryForm = async (request, response) => {
   if (request.session.loggedIn) {
     const categoryList = await categoryModel.getCategories();
+    categoryList.sort((a, b) => a.name.localeCompare(b.name));
     response.render("admin/grocery/add", {
       loggedIn: true,
       categoryList,
@@ -46,6 +47,7 @@ const updateGroceryForm = async (request, response) => {
     }
 
     const categoryList = await categoryModel.getCategories();
+    categoryList.sort((a, b) => a.name.localeCompare(b.name));
 
     response.render("admin/grocery/update", {
       loggedIn: true,

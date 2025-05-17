@@ -16,9 +16,10 @@ const Category = mongoose.model("Category", CategorySchema);
 //MONGODB FUNCTIONS
 async function getCategories() {
   await db.connect();
-  const categories = await Category.find({})
-    .sort({ name: 1 })
-    .populate("parent_category_id", "name");
+  const categories = await Category.find({}).populate(
+    "parent_category_id",
+    "name"
+  );
 
   categories.sort((a, b) => {
     const parentA = a.parent_category_id?.name || "";
