@@ -1,25 +1,60 @@
 extends ../../common/layout
 
 block layout-content 
-    h1 Add New Record to Grocery
-    if err
-      p #{err}
-    form.inputform(method="post", action="/admin/grocery/add")
-      div 
-        label(for="store") Store: 
-        input(type="text", id="store", name="store")
-      div 
-        label(for="price") Price: 
-        input(type="number", id="price", name="price", step="0.01", min="0")
-      div 
-        label(for="unit") Unit: 
-        input(type="number", id="unit", name="unit")
-      div 
-        label(for="price_per_unit") Price/Unit: 
-        input(type="number", id="price_per_unit", name="price_per_unit", step="0.001", min="0")
-      div 
-        label(for="category_id") Category: 
-        input(type="text", id="category_id", name="category_id")
-      div 
-        button.confirmButton(type="submit") Add
-        a.cancelButton(href="/admin/grocery/list") Cancel
+  h1 Add New Record to Grocery
+  p 1 kg = 2.20462262 lbs
+  if err
+    p #{err}
+  form.inputform(method="post", action="/admin/grocery/add")
+    div 
+      label(for="store") Store: 
+      input(type="text", id="store", name="store")
+    div 
+      label(for="description") Description: 
+      input(type="text", id="description", name="description")
+    div 
+      label(for="price") Price: 
+      input(type="number", id="price", name="price", step="0.01", min="0")
+    div 
+      label(for="unit") Unit: 
+      input(type="number", id="unit", name="unit", step="0.0001", min="0")
+    div 
+      label(for="price_per_unit") Price/Unit: 
+      input(
+        type="number"
+        id="price_per_unit"
+        name="price_per_unit"
+        step="0.001"
+        readonly
+      )
+    div 
+      label(for="category_id") Category: 
+      select#category_id(name="category_id")
+        option(value="") — None —
+        each category in categoryList
+          option(value=category._id)= category.name
+    div 
+      button.confirmButton(type="submit") Add
+      a.cancelButton(href="/admin/grocery/list") Cancel
+
+
+
+  script.
+    (function() {
+      const priceEl = document.getElementById('price');
+      const unitEl  = document.getElementById('unit');
+      const ppuEl   = document.getElementById('price_per_unit');
+
+      function updatePPU() {
+        const price = parseFloat(priceEl.value);
+        const unit  = parseFloat(unitEl.value);
+        if (!isNaN(price) && unit > 0) {
+          ppuEl.value = (price / unit).toFixed(3);
+        } else {
+          ppuEl.value = '';
+        }
+      }
+      // Recompute whenever price or unit changes
+      priceEl.addEventListener('input', updatePPU);
+      unitEl.addEventListener('input', updatePPU);
+    })();

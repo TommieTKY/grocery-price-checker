@@ -5,6 +5,7 @@ const db = require("../../db"); //shared db stuff
 //set up Schema and model
 const GrocerySchema = new mongoose.Schema({
   store: String,
+  description: String,
   price: Number,
   unit: Number,
   price_per_unit: Number,
@@ -32,10 +33,18 @@ async function getGroceries() {
   return groceries;
 }
 
-async function addGrocery(store, price, unit, price_per_unit, category_id) {
+async function addGrocery(
+  store,
+  description,
+  price,
+  unit,
+  price_per_unit,
+  category_id
+) {
   await db.connect();
   let newGrocery = new Grocery({
     store: store,
+    description: description,
     price: price,
     unit: unit,
     price_per_unit: price_per_unit,
@@ -49,22 +58,28 @@ async function addGrocery(store, price, unit, price_per_unit, category_id) {
 async function updateGrocery(
   id,
   store,
+  description,
   price,
   unit,
   price_per_unit,
   category_id
 ) {
   await db.connect();
-  let updateGrocery = await Grocery.updateOne({
-    store: store,
-    price: price,
-    unit: unit,
-    price_per_unit: price_per_unit,
-    category_id: category_id,
-  });
-  let result = await updateGrocery.findByIdAndUpdate(id);
-  if (result === updateGrocery) return true;
-  else return false;
+
+  if (!category_id) category_id = null;
+  const updateGrocery = await Grocery.findByIdAndUpdate(
+    id,
+    {
+      store: store,
+      description: description,
+      price: price,
+      unit: unit,
+      price_per_unit: price_per_unit,
+      category_id: category_id,
+    },
+    { new: true }
+  );
+  return updateGrocery !== null;
 }
 
 async function deleteGrocery(id) {
@@ -73,9 +88,15 @@ async function deleteGrocery(id) {
   await Grocery.findByIdAndDelete(id);
 }
 
+async function getGroceryById(id) {
+  await db.connect();
+  return Grocery.findById(id);
+}
+
 module.exports = {
   getGroceries,
   addGrocery,
   updateGrocery,
   deleteGrocery,
+  getGroceryById,
 };

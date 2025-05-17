@@ -64,18 +64,28 @@ async function addCategory(categoryName, parentCategoryId) {
 
 async function updateCategory(categoryId, categoryName, parentCategoryId) {
   await db.connect();
-  let updateCategory = await Category.updateOne(
-    { name: categoryName },
-    { parent_category_id: parentCategoryId }
+  if (!parentCategoryId) parentCategoryId = null;
+  const updateCategory = await Category.findByIdAndUpdate(
+    categoryId,
+    {
+      name: categoryName,
+      parent_category_id: parentCategoryId,
+    },
+    { new: true } // return the updated document
   );
-  let result = await updateCategory.findByIdAndUpdate(categoryId);
-  if (result === updateCategory) return true;
-  else return false;
+
+  // If no document was found/updated, `updated` will be null
+  return updateCategory !== null;
 }
 
 async function deleteCategory(categoryId) {
   await db.connect();
   await Category.findByIdAndDelete(categoryId);
+}
+
+async function getCategoryById(id) {
+  await db.connect();
+  return Category.findById(id);
 }
 
 module.exports = {
@@ -84,4 +94,5 @@ module.exports = {
   addCategory,
   updateCategory,
   deleteCategory,
+  getCategoryById,
 };

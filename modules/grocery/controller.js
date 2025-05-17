@@ -1,4 +1,5 @@
 const groceryModel = require("./model");
+const categoryModel = require("../category/model");
 
 const getGroceries = async (request, response) => {
   let groceryList = await groceryModel.getGroceries();
@@ -12,10 +13,12 @@ const getGroceries = async (request, response) => {
   }
 };
 
-const addGroceryForm = (request, response) => {
+const addGroceryForm = async (request, response) => {
   if (request.session.loggedIn) {
+    const categoryList = await categoryModel.getCategories();
     response.render("admin/grocery/add", {
       loggedIn: true,
+      categoryList,
     });
   } else {
     response.redirect("/user/login");
@@ -25,6 +28,7 @@ const addGroceryForm = (request, response) => {
 const addGrocery = async (request, response) => {
   await groceryModel.addGrocery(
     request.body.store,
+    request.body.description,
     request.body.price,
     request.body.unit,
     request.body.price_per_unit,
@@ -33,14 +37,31 @@ const addGrocery = async (request, response) => {
   response.redirect("/admin/grocery/list");
 };
 
-const updateGroceryForm = (request, response) => {
-  response.render("admin/grocery/update");
+const updateGroceryForm = async (request, response) => {
+  if (request.session.loggedIn) {
+    const groceryId = request.params.id;
+    const grocery = await groceryModel.getGroceryById(groceryId);
+    if (!grocery) {
+      return response.status(404).send("Grocery not found");
+    }
+
+    const categoryList = await categoryModel.getCategories();
+
+    response.render("admin/grocery/update", {
+      loggedIn: true,
+      grocery,
+      categoryList,
+    });
+  } else {
+    response.redirect("/user/login");
+  }
 };
 
 const updateGrocery = async (request, response) => {
   await groceryModel.updateGrocery(
     request.params.id,
     request.body.store,
+    request.body.description,
     request.body.price,
     request.body.unit,
     request.body.price_per_unit,

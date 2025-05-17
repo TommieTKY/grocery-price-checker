@@ -38,8 +38,24 @@ const addCategory = async (request, response) => {
   }
 };
 
-const updateCategoryForm = (request, response) => {
-  response.render("admin/category/update");
+const updateCategoryForm = async (request, response) => {
+  if (request.session.loggedIn) {
+    const categoryId = request.params.id;
+    const category = await categoryModel.getCategoryById(categoryId);
+    if (!category) {
+      return response.status(404).send("Category not found");
+    }
+
+    const parents = await categoryModel.getParentCategories();
+
+    response.render("admin/category/update", {
+      loggedIn: true,
+      category,
+      parents,
+    });
+  } else {
+    response.redirect("/user/login");
+  }
 };
 
 const updateCategory = async (request, response) => {

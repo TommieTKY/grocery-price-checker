@@ -7,10 +7,16 @@ block layout-content
     form.inputform(method="post", action=`/admin/category/update/${category._id}`)
       div 
         label(for="name") Name: 
-        input(type="text", id="name", name="name")
+        input(type="text", id="name", name="name", value=category.name)
       div 
-        label(for="parentCategoryId") Parent Category Id: 
-        input(type="text", id="parentCategoryId", name="parentCategoryId")
+        label(for="parentCategoryId") Parent Category:
+        select#parentCategoryId(name="parent_category_id")
+          option(value="") — None —
+          each parent in parents
+            option(
+              value=parent._id,
+              selected=(category.parent_category_id && parent._id.toString() === category.parent_category_id.toString())
+            )= parent.name
       div 
         button.confirmButton(type="submit") Update
         a.cancelButton(href="/admin/category/list") Cancel
